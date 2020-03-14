@@ -7,6 +7,8 @@ w = BeautifulSoup(q.content, "html.parser").find(id="LookingAhead")
 y = w.find(class_="today-daypart-content")
 e = re.search("[0-9]+", str(y.find(class_="")))
 r = re.search(">High<|>Low<", str(y.find(id="dp0-highLow")))
+r = r.group().replace("<", "")
+r = r.replace(">", "")
 
 
 class Day:
@@ -16,5 +18,5 @@ class Day:
         d.lh = lh
 
 
-today = Day("today", e.group(), r.group())
+today = Day("today", e.group(), r)
 print(today.days + today.temp + today.lh)
